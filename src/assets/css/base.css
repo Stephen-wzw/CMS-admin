@@ -1,0 +1,19 @@
+html {
+  font-size: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* element补充 */
+.el-dropdown-link {
+  cursor: pointer;
+  color: #777;
+}
+
+.el-icon-arrow-down {
+  font-size: 12px;
+}
