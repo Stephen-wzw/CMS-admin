@@ -1,22 +1,22 @@
 import {
+  Row,
+  Col,
   Container,
   Header,
   Aside,
   Main,
   Footer,
-
   Menu,
   MenuItem,
-
   Dropdown,
   DropdownItem,
   DropdownMenu,
-
   Button,
   Input,
   Select,
   Option,
   OptionGroup,
+  DatePicker,
   Loading,
   Backtop,
   Form,
@@ -26,6 +26,9 @@ import {
 
 const element = {
   install: function(Vue) {
+    Vue.use(Row);
+    Vue.use(Col);
+
     Vue.use(Container);
     Vue.use(Header);
     Vue.use(Aside);
@@ -36,7 +39,7 @@ const element = {
     Vue.use(DropdownItem);
     Vue.use(DropdownMenu);
     Vue.use(Button);
-    
+
     Vue.use(Input);
     Vue.use(Select);
     Vue.use(Option);
@@ -44,6 +47,8 @@ const element = {
     Vue.use(Backtop);
     Vue.use(Form);
     Vue.use(FormItem);
+
+    Vue.use(DatePicker);
     Vue.use(Avatar);
     Vue.use(Menu);
     Vue.use(MenuItem);
