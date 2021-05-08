@@ -8,6 +8,20 @@ html {
   box-sizing: border-box;
 }
 
+/* 最外层包裹区 */
+.wrap {
+  min-height: calc( 100vh - 120px );
+}
+
+/* 主要内容区域 */
+.body {
+  margin: 25px 25px 0;
+  padding: 25px;
+  background: rgb(255, 255, 255);
+  min-height: calc(100vh - 200px);
+  border-radius: 5px;
+}
+
 /* element补充 */
 .el-dropdown-link {
   cursor: pointer;

@@ -6,14 +6,14 @@
         <h4>博客后台管理</h4>
       </div>
       <el-menu
-        default-active="/admin/article"
+        default-active="/admin/article-manage"
         class="el-menu-vertical-demo"
         background-color="#2f4050"
         text-color="#fff"
         active-text-color="#ffd04b"
         router
       >
-        <el-menu-item index="/admin/article">
+        <el-menu-item index="/admin/article-manage">
           <i class="el-icon-document"></i>
           <span slot="title">文章管理</span>
         </el-menu-item>
@@ -39,7 +39,8 @@
         </el-menu-item>
       </el-menu>
     </el-aside>
-    <el-container>
+    <!-- 相对于侧边栏定位 -->
+    <el-container class="margin-left">
       <el-header>
         <el-dropdown>
           <span class="el-dropdown-link">
@@ -47,9 +48,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item icon="el-icon-edit">修改密码</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-switch-button"
-              >退出登录</el-dropdown-item
-            >
+            <el-dropdown-item icon="el-icon-switch-button">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -63,9 +62,7 @@
 
 <script>
 export default {
-  created() {
-    console.log(this.$route);
-  }
+
 };
 </script>
 
@@ -76,6 +73,12 @@ export default {
   text-align: left;
   overflow-y: auto;
   height: 100vh;
+  position: fixed;
+  left: 0;
+}
+
+.margin-left {
+  margin-left: 200px;
 }
 
 .aside-header {
@@ -109,11 +112,11 @@ export default {
   border-bottom: 1px solid #e7eaec;
 }
 
+/* 内容区main */
 .el-main {
-  background-color: #e9eef3;
+  background-color: #f0f2f5;
   color: #333;
-  text-align: center;
-  line-height: 160px;
+  padding: 0;
 }
 
 body > .el-container {
@@ -127,7 +130,7 @@ body > .el-container {
 
 .el-footer {
   text-align: center;
-  color: #888;
+  background-color: #f0f2f5;
   user-select: none;
   padding: 24px 0;
 }
