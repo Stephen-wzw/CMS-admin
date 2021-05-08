@@ -6,33 +6,34 @@
         <h4>博客后台管理</h4>
       </div>
       <el-menu
-        default-active="1"
+        default-active="/admin/article"
         class="el-menu-vertical-demo"
         background-color="#2f4050"
         text-color="#fff"
         active-text-color="#ffd04b"
+        router
       >
-        <el-menu-item index="1">
+        <el-menu-item index="/admin/article">
           <i class="el-icon-document"></i>
           <span slot="title">文章管理</span>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="/admin/category">
           <i class="el-icon-menu"></i>
           <span slot="title">分类管理</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="/admin/comment">
           <i class="el-icon-chat-line-round"></i>
           <span slot="title">评论管理</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="/admin/message">
           <i class="el-icon-message"></i>
           <span slot="title">留言管理</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="/admin/about">
           <i class="el-icon-user"></i>
           <span slot="title">关于管理</span>
         </el-menu-item>
-        <el-menu-item index="6">
+        <el-menu-item index="/admin/setting">
           <i class="el-icon-setting"></i>
           <span slot="title">系统设置</span>
         </el-menu-item>
@@ -61,7 +62,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    console.log(this.$route);
+  }
+};
 </script>
 
 <style scoped>

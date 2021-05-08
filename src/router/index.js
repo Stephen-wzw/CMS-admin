@@ -24,6 +24,7 @@ const routes = [
   {
     path: "/admin",
     component: Layout,
+    redirect: "/admin/article",
     children: [
       {
         path: "article",
