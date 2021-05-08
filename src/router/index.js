@@ -5,7 +5,8 @@ Vue.use(VueRouter);
 
 const Login = () => import("views/auth/AdminLogin");
 const Layout = () => import("@/layout");
-const Article = () => import("views/article/ArticleManage");
+const ArticleManage = () => import("views/article/ArticleManage");
+const ArticleEdit = () => import("views/article/ArticleEdit")
 const Category = () => import("views/category/CateManage");
 const Comment = () => import("views/comment/CommentManage");
 const Message = () => import("views/message/MessageManage");
@@ -24,11 +25,15 @@ const routes = [
   {
     path: "/admin",
     component: Layout,
-    redirect: "/admin/article",
+    redirect: "/admin/article-manage",
     children: [
       {
-        path: "article",
-        component: Article,
+        path: "article-manage",
+        component: ArticleManage,
+      },
+      {
+        path: "article-edit",
+        component: ArticleEdit,
       },
       {
         path: "category",
