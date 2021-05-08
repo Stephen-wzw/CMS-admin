@@ -1,12 +1,16 @@
 <template>
   <div class="about-manage">
-    关于管理
+    <bread-crumb>关于管理</bread-crumb>
   </div>
 </template>
 
 <script>
-export default {
+import BreadCrumb from "components/common/BreadCrumb";
 
+export default {
+  components: {
+    BreadCrumb,
+  },
 }
 </script>
 

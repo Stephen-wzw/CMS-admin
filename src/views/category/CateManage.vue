@@ -1,13 +1,17 @@
 <template>
   <div class="cate-manage">
-    分类管理
+    <bread-crumb>分类管理</bread-crumb>
   </div>
 </template>
 
 <script>
-export default {
+import BreadCrumb from "components/common/BreadCrumb";
 
-}
+export default {
+  components: {
+    BreadCrumb,
+  },
+};
 </script>
 
 <style>
