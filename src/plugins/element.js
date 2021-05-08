@@ -21,6 +21,8 @@ import {
   Backtop,
   Form,
   FormItem,
+  Table,
+  TableColumn,
   Avatar,
 } from "element-ui";
 
@@ -44,11 +46,16 @@ const element = {
     Vue.use(Select);
     Vue.use(Option);
     Vue.use(OptionGroup);
+    Vue.use(DatePicker);
+
     Vue.use(Backtop);
+
     Vue.use(Form);
     Vue.use(FormItem);
 
-    Vue.use(DatePicker);
+    Vue.use(Table);
+    Vue.use(TableColumn);
+
     Vue.use(Avatar);
     Vue.use(Menu);
     Vue.use(MenuItem);
