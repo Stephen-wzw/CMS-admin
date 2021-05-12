@@ -3,25 +3,23 @@
     <bread-crumb>文章管理</bread-crumb>
     <div class="body">
       <filter-form></filter-form>
-      <data-table></data-table>
+      <article-table></article-table>
     </div>
   </div>
 </template>
 
 <script>
 import BreadCrumb from "components/common/BreadCrumb";
-import FilterForm from "./childComps/FilterForm"
-import DataTable from "./childComps/DataTable"
+import FilterForm from "./childComps/FilterForm";
+import ArticleTable from "./childComps/ArticleTable";
 
 export default {
   components: {
     BreadCrumb,
     FilterForm,
-    DataTable,
+    ArticleTable,
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
