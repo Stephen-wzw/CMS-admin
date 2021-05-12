@@ -1,6 +1,6 @@
 <template>
   <div class="article-manage">
-    <bread-crumb>文章管理</bread-crumb>
+    <bread-crumb>新增文章</bread-crumb>
     <div class="ss"></div>
   </div>
 </template>
