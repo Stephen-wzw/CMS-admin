@@ -1,6 +1,7 @@
 <template>
   <div class="cate-manage">
     <bread-crumb>分类管理</bread-crumb>
+    <div class="body"></div>
   </div>
 </template>
 
