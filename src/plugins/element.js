@@ -24,6 +24,7 @@ import {
   Table,
   TableColumn,
   Avatar,
+  Tag,
 } from "element-ui";
 
 const element = {
@@ -49,6 +50,8 @@ const element = {
     Vue.use(DatePicker);
 
     Vue.use(Backtop);
+
+    Vue.use(Tag)
 
     Vue.use(Form);
     Vue.use(FormItem);
