@@ -9,7 +9,7 @@
         :disabled="!tableData.length"
         v-show="showDelete"
       >
-        <slot>删除</slot>
+        <slot name="but-one">删除</slot>
       </el-button>
       <el-button
         type="primary"
@@ -18,7 +18,7 @@
         icon="el-icon-plus"
         v-show="showAdd"
       >
-        <slot>新增</slot>
+        <slot name="btn-two">新增</slot>
       </el-button>
     </div>
     <el-table
