@@ -1,11 +1,17 @@
 <template>
-  <data-table :tableData="articleData" :header="articleHeader" :showStatus="true"></data-table>
+  <data-table
+    :tableData="articleData"
+    :header="articleHeader"
+    :showStatus="true"
+    :showEdit="true"
+    @deleteOne="deleteOne"
+  ></data-table>
 </template>
 
 <script>
 import moment from "moment";
 
-import DataTable from "components/content/DataTable"
+import DataTable from "components/content/DataTable";
 
 import { getAllArticle } from "network/article";
 
@@ -70,6 +76,9 @@ export default {
         for (let i = 0; i < length; i++) {
           tempData[i] = new Object();
 
+          this.$set(tempData[i], "articleId", res[i].articleId);
+          
+          // 表格所需数据
           this.$set(tempData[i], "status", res[i].articleStatus);
           this.$set(tempData[i], "title", res[i].articleTitle);
           this.$set(tempData[i], "category", res[i].categoryId);
@@ -87,34 +96,9 @@ export default {
       });
     },
 
-    // 删除
-    Delete() {
-      console.log("delete");
-    },
-    btnClick() {
-      this.$router.push("article-edit").catch((err) => err);
-    },
-    // 操作方法
-    handleClick(row) {
-      console.log(row);
-    },
-
-    // 标签方法=>筛选对于标签
-    resetDateFilter() {
-      this.$refs.filterTable.clearFilter("date");
-    },
-    clearFilter() {
-      this.$refs.filterTable.clearFilter();
-    },
-    formatter(row) {
-      return row.status;
-    },
-    filterTag(value, row) {
-      return row.status === value;
-    },
-    filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
+    // 删除一篇文章
+    deleteOne(row) {
+      console.log(row.articleId);
     },
   },
 };
