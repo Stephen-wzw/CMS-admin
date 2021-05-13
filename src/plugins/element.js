@@ -25,10 +25,13 @@ import {
   TableColumn,
   Avatar,
   Tag,
+  Dialog,
+  MessageBox,
+  Message,
 } from "element-ui";
 
 const element = {
-  install: function(Vue) {
+  install: function (Vue) {
     Vue.use(Row);
     Vue.use(Col);
 
@@ -51,7 +54,8 @@ const element = {
 
     Vue.use(Backtop);
 
-    Vue.use(Tag)
+    Vue.use(Tag);
+    Vue.use(Dialog);
 
     Vue.use(Form);
     Vue.use(FormItem);
@@ -65,6 +69,11 @@ const element = {
     Vue.use(Loading.directive);
 
     Vue.prototype.$loading = Loading.service;
+    Vue.prototype.$msgbox = MessageBox;
+    Vue.prototype.$alert = MessageBox.alert;
+    Vue.prototype.$confirm = MessageBox.confirm;
+    Vue.prototype.$prompt = MessageBox.prompt;
+    Vue.prototype.$message = Message;
   },
 };
 
