@@ -3,7 +3,7 @@
     <div class="btn-wrap">
       <el-button
         type="danger"
-        @click="Delete"
+        @click="deleteAllClick"
         size="small"
         icon="el-icon-delete"
         :disabled="!tableData.length"
@@ -14,14 +14,18 @@
       <el-button
         type="primary"
         size="small"
-        @click="btnClick"
+        @click="addClick"
         icon="el-icon-plus"
         v-show="showAdd"
       >
         <slot>新增</slot>
       </el-button>
     </div>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <!-- 选择框 -->
       <el-table-column type="selection" width="55" align="center">
       </el-table-column>
@@ -60,10 +64,16 @@
       <!-- 操作栏 -->
       <el-table-column fixed="right" label="操作" width="100" align="center">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
+          <el-button
+            @click="handleClick(scope.row)"
+            type="text"
+            size="small"
+            v-show="showEdit"
+            >编辑</el-button
           >
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small" @click="deleteOneClick(scope.row)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -101,38 +111,65 @@ export default {
       type: Boolean,
       default: false,
     },
+    showEdit: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
-    return {};
+    return {
+      multiSelection: [], // 多选的数据
+    };
   },
   // TODO：需要增加自适应列表宽度
   methods: {
+    //操作多选
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+
     // 删除
     // TODO: 调用后台接口
-    Delete() {
-      console.log("delete");
+    deleteAllClick() {
+      console.log(this.multipleSelection);
     },
-    btnClick() {
+
+    confirmDelete() {
+      console.log('queren');
+    },
+
+    // 新增跳转至文章编辑
+    // TODO: 应该使用自定义事件
+    addClick() {
       this.$router.push("article-edit").catch((err) => err);
     },
+
     // 操作方法
     handleClick(row) {
       console.log(row);
     },
 
-    // 标签方法=>筛选对于标签
+    deleteOneClick(row) {
+      this.$emit("deleteOne", row);
+    },
+
+    // 标签方法
     resetDateFilter() {
       this.$refs.filterTable.clearFilter("date");
     },
+
     clearFilter() {
       this.$refs.filterTable.clearFilter();
     },
+
     formatter(row) {
       return row.status;
     },
+
     filterTag(value, row) {
       return row.status === value;
     },
+
     filterHandler(value, row, column) {
       const property = column["property"];
       return row[property] === value;
