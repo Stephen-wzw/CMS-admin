@@ -27,12 +27,6 @@ export function recover(articleId) {
   });
 }
 
-export function getCategory() {
-  return request({
-    url: "/category/list",
-  });
-}
-
 export function getArticleByCate(categoryId) {
   return request({
     url: `/articleCategory/${categoryId}`,
