@@ -160,7 +160,7 @@ export default {
     // 删除
     // TODO: 调用后台接口
     deleteAllClick() {
-      console.log(this.multipleSelection);
+      this.$emit("deleteAll", this.multipleSelection)
     },
 
     confirmDelete() {

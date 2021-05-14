@@ -6,6 +6,7 @@
     :showEdit="true"
     @deleteOne="deleteOne"
     @recover="recoverArticle"
+    @deleteAll="deleteAll"
   ></data-table>
 </template>
 
@@ -14,7 +15,7 @@ import moment from "moment";
 
 import DataTable from "components/content/DataTable";
 
-import { getAllArticle, deleteOne, recover } from "network/article";
+import { getAllArticle, deleteOne, deleteAll, recover } from "network/article";
 
 const articleHeader = [
   // {
@@ -99,15 +100,11 @@ export default {
     // 删除一篇文章
     deleteOne(row) {
       if (row.status == 1) {
-        this.$confirm(
-          "你可以随时恢复，是否继续?",
-          "文章将变成已删除状态",
-          {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning",
-          }
-        )
+        this.$confirm("你可以随时恢复，是否继续?", "文章将变成已删除状态", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
           .then(() => {
             deleteOne(row.articleId).then((res) => {
               console.log(res);
@@ -164,6 +161,44 @@ export default {
       }
     },
 
+    deleteAll(multipleSelection) {
+      this.$confirm(
+        `确定删除${multipleSelection.length}篇文章？你可以随时恢复，是否继续?`,
+        "文章将变成已删除状态",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          deleteAll(multipleSelection).then((res) => {
+            const ids = multipleSelection.toString();
+            const len = multipleSelection.length;
+
+            if (res.msg === `成功删除id为${ids}的文章，共计${len}篇文章`) {
+              this.$message({
+                type: "success",
+                message: "删除成功!",
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除失败!",
+              });
+            }
+
+            this.getAllArticle();
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+
     // 恢复文章
     recoverArticle(row) {
       this.$confirm("文章将恢复，变成已发布状态", "确定要恢复文章吗？", {
@@ -173,7 +208,20 @@ export default {
       })
         .then(() => {
           recover(row.articleId).then((res) => {
-            console.log(res);
+            const id = row.articleId;
+
+            if (res.msg === `成功恢复id为${id}的文章`) {
+              this.$message({
+                type: "success",
+                message: "恢复成功!",
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: "恢复失败!",
+              });
+            }
+
             this.getAllArticle();
           });
         })
