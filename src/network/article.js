@@ -13,6 +13,13 @@ export function deleteOne(articleId) {
   });
 }
 
+export function deleteAll(articleIds) {
+  return request({
+    url: `/admin/articles/${articleIds}/delete`,
+    method: "post",
+  });
+}
+
 export function recover(articleId) {
   return request({
     url: `/admin/article/${articleId}/recover`,
