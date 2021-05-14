@@ -9,7 +9,7 @@
         :disabled="!tableData.length"
         v-show="showDelete"
       >
-        <slot name="but-one">删除</slot>
+        删除
       </el-button>
       <el-button
         type="primary"
@@ -18,7 +18,7 @@
         icon="el-icon-plus"
         v-show="showAdd"
       >
-        <slot name="btn-two">新增</slot>
+        新增
       </el-button>
     </div>
     <el-table
@@ -27,7 +27,12 @@
       @selection-change="handleSelectionChange"
     >
       <!-- 选择框 -->
-      <el-table-column type="selection" width="55" align="center">
+      <el-table-column
+        type="selection"
+        width="55"
+        align="center"
+        :selectable="selectable"
+      >
       </el-table-column>
       <!-- 状态标签 -->
       <el-table-column
@@ -62,16 +67,31 @@
         align="center"
       ></el-table-column>
       <!-- 操作栏 -->
-      <el-table-column fixed="right" label="操作" width="100" align="center">
+      <el-table-column fixed="right" label="操作" width="150" align="center">
         <template slot-scope="scope">
           <el-button
-            @click="handleClick(scope.row)"
+            @click="editClick(scope.row)"
             type="text"
             size="small"
             v-show="showEdit"
+            v-if="scope.row.status"
+            icon="el-icon-edit"
             >编辑</el-button
           >
-          <el-button type="text" size="small" @click="deleteOneClick(scope.row)"
+          <el-button
+            @click="recoverClick(scope.row)"
+            type="text"
+            size="small"
+            v-show="showEdit"
+            v-else
+            icon="el-icon-refresh-right"
+            >恢复</el-button
+          >
+          <el-button
+            type="text"
+            size="small"
+            icon="el-icon-delete"
+            @click="deleteOneClick(scope.row)"
             >删除</el-button
           >
         </template>
@@ -125,7 +145,16 @@ export default {
   methods: {
     //操作多选
     handleSelectionChange(val) {
-      this.multipleSelection = val;
+      const len = val.length;
+      const temp = new Array;
+
+      for (let i = 0; i < len; i++) {
+        temp[i] = val[i].articleId;
+      }
+
+      console.log(temp);
+      this.multipleSelection = temp;
+      console.log(this.multipleSelection);
     },
 
     // 删除
@@ -135,18 +164,23 @@ export default {
     },
 
     confirmDelete() {
-      console.log('queren');
+      console.log("queren");
     },
 
     // 新增跳转至文章编辑
     // TODO: 应该使用自定义事件
     addClick() {
-      this.$router.push("article-edit").catch((err) => err);
+      this.$emit("addClick");
+      // this.$router.push("article-edit").catch((err) => err);
     },
 
     // 操作方法
-    handleClick(row) {
-      console.log(row);
+    editClick(row) {
+      this.$emit("edit", row);
+    },
+
+    recoverClick(row) {
+      this.$emit("recover", row);
     },
 
     deleteOneClick(row) {
@@ -173,6 +207,15 @@ export default {
     filterHandler(value, row, column) {
       const property = column["property"];
       return row[property] === value;
+    },
+
+    // 判断复选框可否选择
+    selectable(row) {
+      if (row.status == 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
