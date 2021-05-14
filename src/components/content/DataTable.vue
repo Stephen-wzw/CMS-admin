@@ -32,6 +32,7 @@
         width="55"
         align="center"
         :selectable="selectable"
+        v-if="showSelect"
       >
       </el-table-column>
       <!-- 状态标签 -->
@@ -58,6 +59,20 @@
           </el-tag>
         </template>
       </el-table-column>
+
+      <!-- 选择框 -->
+      <el-table-column
+        width="80"
+        align="center"
+        v-if="showImg"
+        prop="img"
+        label="分类图标"
+      >
+        <template slot-scope="scope">
+          <img :src="scope.row.img" alt="" height="25" width="25" />
+        </template>
+      </el-table-column>
+
       <!-- 循环展示文章数据 -->
       <el-table-column
         v-for="(item, index) in header.slice(0)"
@@ -72,7 +87,7 @@
           <el-button
             @click="editClick(scope.row)"
             type="text"
-            size="small"
+            size="medium"
             v-show="showEdit"
             v-if="scope.row.status"
             icon="el-icon-edit"
@@ -81,7 +96,7 @@
           <el-button
             @click="recoverClick(scope.row)"
             type="text"
-            size="small"
+            size="medium"
             v-show="showEdit"
             v-else
             icon="el-icon-refresh-right"
@@ -89,7 +104,7 @@
           >
           <el-button
             type="text"
-            size="small"
+            size="medium"
             icon="el-icon-delete"
             @click="deleteOneClick(scope.row)"
             >删除</el-button
@@ -127,7 +142,15 @@ export default {
         return true;
       },
     },
+    showSelect: {
+      type: Boolean,
+      default: true,
+    },
     showStatus: {
+      type: Boolean,
+      default: false,
+    },
+    showImg: {
       type: Boolean,
       default: false,
     },
@@ -146,21 +169,19 @@ export default {
     //操作多选
     handleSelectionChange(val) {
       const len = val.length;
-      const temp = new Array;
+      const temp = new Array();
 
       for (let i = 0; i < len; i++) {
         temp[i] = val[i].articleId;
       }
 
-      console.log(temp);
       this.multipleSelection = temp;
-      console.log(this.multipleSelection);
     },
 
     // 删除
     // TODO: 调用后台接口
     deleteAllClick() {
-      this.$emit("deleteAll", this.multipleSelection)
+      this.$emit("deleteAll", this.multipleSelection);
     },
 
     confirmDelete() {
