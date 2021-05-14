@@ -6,6 +6,20 @@ export function getAllArticle() {
   });
 }
 
+export function deleteOne(articleId) {
+  return request({
+    url: `/admin/article/${articleId}/delete`,
+    method: "post",
+  });
+}
+
+export function recover(articleId) {
+  return request({
+    url: `/admin/article/${articleId}/recover`,
+    method: "post",
+  });
+}
+
 export function getCategory() {
   return request({
     url: "/category/list",
