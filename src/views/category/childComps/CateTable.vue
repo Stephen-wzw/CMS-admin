@@ -1,9 +1,11 @@
 <template>
   <data-table
-    :tableData="articleData"
-    :header="articleHeader"
-    :showStatus="true"
+    :tableData="categoryData"
+    :header="categoryHeader"
     :showEdit="true"
+    :showDelete="false"
+    :showSelect="false"
+    :showImg="true"
     @deleteOne="deleteOne"
     @addClick="addCate"
   >
@@ -11,40 +13,14 @@
 </template>
 
 <script>
-import moment from "moment";
-
 import DataTable from "components/content/DataTable";
 
-import { getAllArticle } from "network/article";
+import { getCategory, deleteOne } from "network/category";
 
-const articleHeader = [
-  // {
-  //   prop: "status",
-  //   label: "状态",
-  // },
+const categoryHeader = [
   {
-    prop: "title",
-    label: "标题",
-  },
-  {
-    prop: "category",
-    label: "分类",
-  },
-  {
-    prop: "Date",
-    label: "创建时间",
-  },
-  {
-    prop: "viewCount",
-    label: "浏览数",
-  },
-  {
-    prop: "commentCount",
-    label: "评论数",
-  },
-  {
-    prop: "likeCount",
-    label: "点赞数",
+    prop: "categoryName",
+    label: "分类名称",
   },
 ];
 
@@ -54,59 +30,82 @@ export default {
   },
   data() {
     return {
-      articleHeader,
-      articleData: [],
+      categoryHeader,
+      categoryData: [],
     };
   },
-  mounted() {
-    console.log("article table");
-    this.getAllArticle();
-  },
-  watch: {
-    articleData: function() {
-      console.log("yi");
-    },
+  created() {
+    this.getCategory();
   },
   methods: {
-    getAllArticle() {
-      getAllArticle().then((res) => {
+    getCategory() {
+      getCategory().then((res) => {
         console.log(res);
+
         // 设置临时变量，这样能解决表格不渲染数据的问题，但是不知道为什么
         // TODO：了解响应式变化原理
         const tempData = [];
         const length = res.length;
-        for (let i = 0; i < length; i++) {
+
+        for (let i = 1; i < length; i++) {
           tempData[i] = new Object();
 
-          this.$set(tempData[i], "articleId", res[i].articleId);
-          
-          // 表格所需数据
-          this.$set(tempData[i], "status", res[i].articleStatus);
-          this.$set(tempData[i], "title", res[i].articleTitle);
-          this.$set(tempData[i], "category", res[i].categoryId);
-          this.$set(
-            tempData[i],
-            "Date",
-            moment(res[i].articleCreationTime).format("YY/MM/DD HH:MM")
+          const categoryPhoto = res[i].categoryPhoto.replace(
+            /http:\/\/localhost:8080\//,
+            "http://10.138.240.106:8080/"
           );
-          this.$set(tempData[i], "viewCount", res[i].articleViewCount);
-          this.$set(tempData[i], "commentCount", res[i].commentCount);
-          this.$set(tempData[i], "likeCount", res[i].articleLikeCount);
+
+          // 为了显示编辑
+          this.$set(tempData[i], "status", 1);
+
+          this.$set(tempData[i], "categoryId", res[i].categoryId);
+          // 表格所需数据
+          this.$set(tempData[i], "categoryName", res[i].categoryName);
+          this.$set(tempData[i], "img", categoryPhoto);
         }
-        console.log(tempData);
-        this.articleData = tempData;
+
+        this.categoryData = tempData;
       });
     },
 
     // 删除分类
     deleteOne(row) {
-      console.log(row.articleId);
+      this.$confirm("删除后不可恢复，该分类下的所有文章将自动归入未分类！", "确定要删除吗", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          deleteOne(row.categoryId).then((res) => {
+            console.log(res);
+
+            if (res.msg === `成功删除id为${row.categoryId}的分类`) {
+              this.$message({
+                type: "success",
+                message: "删除成功!",
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除失败!",
+              });
+            }
+
+            this.getCategory();
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
 
     // 新增分类
     addCate() {
-      console.log('add cate');
-    }
+      console.log("add cate");
+    },
   },
 };
 </script>
