@@ -5,7 +5,9 @@
     :showStatus="true"
     :showEdit="true"
     @deleteOne="deleteOne"
-  ></data-table>
+    @addClick="addCate"
+  >
+  </data-table>
 </template>
 
 <script>
@@ -96,10 +98,15 @@ export default {
       });
     },
 
-    // 删除一篇文章
+    // 删除分类
     deleteOne(row) {
       console.log(row.articleId);
     },
+
+    // 新增分类
+    addCate() {
+      console.log('add cate');
+    }
   },
 };
 </script>
