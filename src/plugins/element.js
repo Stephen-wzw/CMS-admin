@@ -28,6 +28,7 @@ import {
   Dialog,
   MessageBox,
   Message,
+  Upload,
 } from "element-ui";
 
 const element = {
@@ -66,6 +67,9 @@ const element = {
     Vue.use(Avatar);
     Vue.use(Menu);
     Vue.use(MenuItem);
+
+    Vue.use(Upload);
+    
     Vue.use(Loading.directive);
 
     Vue.prototype.$loading = Loading.service;
