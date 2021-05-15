@@ -70,11 +70,15 @@ export default {
 
     // 删除分类
     deleteOne(row) {
-      this.$confirm("删除后不可恢复，该分类下的所有文章将自动归入未分类！", "确定要删除吗", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
+      this.$confirm(
+        "删除后不可恢复，该分类下的所有文章将自动归入未分类！",
+        "确定要删除吗",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
         .then(() => {
           deleteOne(row.categoryId).then((res) => {
             console.log(res);
@@ -104,7 +108,7 @@ export default {
 
     // 新增分类
     addCate() {
-      console.log("add cate");
+      this.$EventBus.$emit("addCate");
     },
   },
 };
