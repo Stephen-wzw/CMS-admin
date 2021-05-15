@@ -12,3 +12,14 @@ export function deleteOne(categoryId) {
     method: "post",
   });
 }
+
+export function addCategory(data) {
+  return request({
+    url: `/admin/category/add`,
+    method: "post",
+    headers: {
+      "Content-Type": "multipart/form-data", //设置headers
+    },
+    data
+  });
+}
