@@ -3,6 +3,7 @@
     <el-form ref="categoryForm" :model="categoryForm" :rules="rules">
       <el-form-item label="分类图标" prop="img">
         <el-upload
+          ref="upload"
           action=""
           accept="image/png,image/gif,image/jpg,image/jpeg"
           :multiple="false"
@@ -21,8 +22,10 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="cateFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="submit">确 定</el-button>
+      <el-button @click="cancel('categoryForm')">取 消</el-button>
+      <el-button type="primary" @click="submit('categoryForm')"
+        >确 定</el-button
+      >
     </div>
   </el-dialog>
 </template>
@@ -41,8 +44,8 @@ export default {
       imgList: undefined,
       imgUrl: "",
       rules: {
-        img: [{ required: true, message: "图片不能为空" }],
-        name: [{ required: true, message: "名称不能为空" }],
+        img: [{ required: true, message: "图片不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "名称不能为空", trigger: "blur" }],
       },
     };
   },
@@ -52,34 +55,89 @@ export default {
     });
   },
   methods: {
-    // 生成图片url 显示出来
+    // 上传前验证 必须小于1M
+    // 在关闭自动上传后，这个钩子不能触发！！！
+    // beforeUpload(file) {
+    //   console.log(file);
+    //   const isLt1M = file.size / 1024 / 1024 < 1;
+
+    //   if (!isLt1M) {
+    //     this.$message.error("上传头像图片大小不能超过 1MB!");
+    //   }
+
+    //   return isLt1M;
+    // },
+
+    // 当图片大小小于1M时，生成图片url 显示出来
     // 保存图片文件
     onChange(file, fileList) {
-      const reader = new FileReader();
-      let arr = [];
+      console.log("文件状态改变");
+      const isLt1M = file.size / 1024 / 1024 < 1;
+      console.log(isLt1M);
+      if (isLt1M) {
+        const reader = new FileReader();
+        let arr = [];
 
-      reader.readAsDataURL(file.raw);
+        reader.readAsDataURL(file.raw);
 
-      reader.onload = () => {
-        this.imgUrl = reader.result;
-      };
+        reader.onload = () => {
+          this.categoryForm.img = reader.result;
+          this.imgUrl = reader.result;
+        };
 
-      fileList.forEach(item => {
-        arr.push(item.raw);
-      });
-      this.imgList = arr;
-      console.log(this.imgList);
+        fileList.forEach((item) => {
+          arr.push(item.raw);
+        });
+        this.imgList = arr;
+        console.log(file, fileList);
+        console.log(this.imgList);
+      } else {
+        this.$message.error("上传头像图片大小不能超过 1MB!");
+      }
     },
 
-    submit() {
-      let formData = new FormData();
-      
-      formData.append('categoryName', this.categoryForm.name);
-      formData.append('file', this.imgList[0])
+    submit(categoryForm) {
+      // 验证成功后才进行新增
+      this.$refs[categoryForm].validate((valid) => {
+        if (valid) {
+          let formData = new FormData();
 
-      addCategory(formData).then((res) => {
-        console.log(res);
+          formData.append("categoryName", this.categoryForm.name);
+          formData.append("file", this.imgList[0]);
+
+          addCategory(formData).then((res) => {
+            this.resetForm(categoryForm);
+            this.$EventBus.$emit("addSuccess");
+
+            console.log(res);
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
       });
+    },
+
+    cancel(categoryForm) {
+      this.resetForm(categoryForm);
+    },
+
+    resetForm(formName) {
+      this.$nextTick(() => {
+        this.$refs[formName].resetFields();
+      });
+      this.cateFormVisible = false;
+      this.imgList = undefined;
+      this.imgUrl = "";
+
+      // 清空上传文件列表，确保 onchange事件触发
+      let uploadFilesArr = this.$refs.upload.uploadFiles; //上传文件列表
+      console.log(uploadFilesArr);
+      if (uploadFilesArr.length == 0) {
+        return 1;
+      } else {
+        this.$refs.upload.uploadFiles = [];
+      }
     },
   },
 };
