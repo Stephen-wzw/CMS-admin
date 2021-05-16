@@ -37,6 +37,12 @@ export default {
   created() {
     this.getCategory();
   },
+  mounted() {
+    this.$EventBus.$on("addSuccess", () => {
+      console.log('sss');
+      this.getCategory();
+    });
+  },
   methods: {
     getCategory() {
       getCategory().then((res) => {
@@ -83,7 +89,7 @@ export default {
           deleteOne(row.categoryId).then((res) => {
             console.log(res);
 
-            if (res.msg === `成功删除id为${row.categoryId}的分类`) {
+            if (res.msg === `成功删除categoryId为${row.categoryId}的分类`) {
               this.$message({
                 type: "success",
                 message: "删除成功!",
