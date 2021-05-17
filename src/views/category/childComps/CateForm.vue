@@ -50,6 +50,11 @@ export default {
       },
     };
   },
+  computed: {
+    title() {
+      return this.categoryId ? "编辑分类" : "新增分类";
+    },
+  },
   mounted() {
     // 新增分类
     this.$EventBus.$on("addCate", () => {
@@ -168,10 +173,10 @@ export default {
         this.categoryForm.name = "";
         this.categoryForm.img = "";
       });
-      this.cateFormVisible = false;
       this.imgList = undefined;
       this.imgUrl = "";
       this.categoryId = "";
+      this.cateFormVisible = false;
 
       // 清空上传文件列表，确保 onchange事件触发
       let uploadFilesArr = this.$refs.upload.uploadFiles; //上传文件列表
