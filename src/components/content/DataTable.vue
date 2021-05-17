@@ -197,7 +197,8 @@ export default {
 
     // 操作方法
     editClick(row) {
-      this.$emit("edit", row);
+      // this.$emit("edit", row);
+      this.$EventBus.$emit("editClick", row);
     },
 
     recoverClick(row) {
