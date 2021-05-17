@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="新增分类" :visible.sync="cateFormVisible">
+  <el-dialog :title="title" :visible.sync="cateFormVisible">
     <el-form ref="categoryForm" :model="categoryForm" :rules="rules">
       <el-form-item label="分类图标" prop="img">
         <el-upload
@@ -67,6 +67,9 @@ export default {
       this.categoryForm.name = row.categoryName;
       this.imgUrl = row.img;
     });
+  },
+  destroyed() {
+    this.$EventBus.$off();
   },
   methods: {
     // 上传前验证 必须小于1M
