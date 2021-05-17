@@ -26,7 +26,7 @@ export function addCategory(data) {
 
 export function editCategory(data, categoryId) {
   return request({
-    url: `/admin/category/${categoryId}/edit`,
+    url: `/admin/category/${categoryId}/update`,
     method: "post",
     headers: {
       "Content-Type": "multipart/form-data", //设置headers

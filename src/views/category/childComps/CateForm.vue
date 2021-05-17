@@ -61,6 +61,7 @@ export default {
     this.$EventBus.$on("editClick", (row) => {
       this.cateFormVisible = !this.dialogFormVisible;
       console.log(row);
+      console.log(this.imgList);
       this.categoryId = row.categoryId;
       this.categoryForm.img = row.img;
       this.categoryForm.name = row.categoryName;
@@ -113,19 +114,33 @@ export default {
       // 验证成功后才进行新增
       this.$refs[categoryForm].validate((valid) => {
         if (valid) {
+          // 编辑
           let formData = new FormData();
 
-          formData.append("categoryName", this.categoryForm.name);
-          formData.append("file", this.imgList[0]);
-
           if (this.categoryId) {
-            console.log("编辑");
-            editCategory(formData, this.categoryId).then((res) => {
-              this.resetForm(categoryForm);
-              console.log(res);
-              this.$EventBus.$emit("editSuccess");
-            })
+            if (this.imgList) {
+              formData.append("categoryName", this.categoryForm.name);
+              formData.append("file", this.imgList[0]);
+
+              editCategory(formData, this.categoryId).then((res) => {
+                this.resetForm(categoryForm);
+                console.log(res);
+                this.$EventBus.$emit("editSuccess");
+              });
+            } else {
+              formData.append("categoryName", this.categoryForm.name);
+
+              editCategory(formData, this.categoryId).then((res) => {
+                this.resetForm(categoryForm);
+                console.log(res);
+                this.$EventBus.$emit("editSuccess");
+              });
+            }
           } else {
+            // 新增
+            formData.append("categoryName", this.categoryForm.name);
+            formData.append("file", this.imgList[0]);
+
             addCategory(formData).then((res) => {
               this.resetForm(categoryForm);
               this.$EventBus.$emit("addSuccess");
@@ -147,6 +162,8 @@ export default {
     resetForm(formName) {
       this.$nextTick(() => {
         this.$refs[formName].resetFields();
+        this.categoryForm.name = "";
+        this.categoryForm.img = "";
       });
       this.cateFormVisible = false;
       this.imgList = undefined;
