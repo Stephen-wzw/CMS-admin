@@ -235,7 +235,7 @@ export default {
 
     // 点击新增跳转至文章编辑页
     toArticleEdit() {
-      this.$router.push(`article-edit`).catch((err) => err);
+      this.$router.push(`article-edit/add`).catch((err) => err);
     },
   },
 };
