@@ -7,6 +7,7 @@
     @deleteOne="deleteOne"
     @recover="recoverArticle"
     @deleteAll="deleteAll"
+    @addClick="toArticleEdit"
   ></data-table>
 </template>
 
@@ -230,6 +231,11 @@ export default {
             message: "已取消恢复",
           });
         });
+    },
+
+    // 点击新增跳转至文章编辑页
+    toArticleEdit() {
+      this.$router.push(`article-edit`).catch((err) => err);
     },
   },
 };
