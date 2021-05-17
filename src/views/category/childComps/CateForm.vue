@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { addCategory } from "network/category";
+import { addCategory, editCategory } from "network/category";
 
 export default {
   data() {
@@ -41,6 +41,7 @@ export default {
         img: "",
         name: "",
       },
+      categoryId: "",
       imgList: undefined,
       imgUrl: "",
       rules: {
@@ -50,8 +51,20 @@ export default {
     };
   },
   mounted() {
+    // 新增分类
     this.$EventBus.$on("addCate", () => {
+      console.log(this.categoryForm);
       this.cateFormVisible = !this.dialogFormVisible;
+    });
+
+    // 编辑分类
+    this.$EventBus.$on("editClick", (row) => {
+      this.cateFormVisible = !this.dialogFormVisible;
+      console.log(row);
+      this.categoryId = row.categoryId;
+      this.categoryForm.img = row.img;
+      this.categoryForm.name = row.categoryName;
+      this.imgUrl = row.img;
     });
   },
   methods: {
@@ -105,12 +118,21 @@ export default {
           formData.append("categoryName", this.categoryForm.name);
           formData.append("file", this.imgList[0]);
 
-          addCategory(formData).then((res) => {
-            this.resetForm(categoryForm);
-            this.$EventBus.$emit("addSuccess");
+          if (this.categoryId) {
+            console.log("编辑");
+            editCategory(formData, this.categoryId).then((res) => {
+              this.resetForm(categoryForm);
+              console.log(res);
+              this.$EventBus.$emit("editSuccess");
+            })
+          } else {
+            addCategory(formData).then((res) => {
+              this.resetForm(categoryForm);
+              this.$EventBus.$emit("addSuccess");
 
-            console.log(res);
-          });
+              console.log(res);
+            });
+          }
         } else {
           console.log("error submit!!");
           return false;
@@ -129,6 +151,7 @@ export default {
       this.cateFormVisible = false;
       this.imgList = undefined;
       this.imgUrl = "";
+      this.categoryId = "";
 
       // 清空上传文件列表，确保 onchange事件触发
       let uploadFilesArr = this.$refs.upload.uploadFiles; //上传文件列表
