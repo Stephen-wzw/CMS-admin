@@ -12,6 +12,15 @@ export default {
   components: {
     BreadCrumb,
   },
+  mounted() {
+    this.$EventBus.$on("editClick", (row) => {
+      this.$router.push("edit").catch((err) => err);
+      console.log(row);
+    });
+  },
+  destroyed() {
+    this.$EventBus.$off();
+  },
 };
 </script>
 

@@ -60,16 +60,16 @@ export default {
   },
   mounted() {
     this.getAllArticle();
+    this.$EventBus.$on("editClick", (row) => {
+      this.$router.push(`article-edit/${row.articleId}`).catch((err) => err);
+    });
   },
-  watch: {
-    articleData: function() {
-      console.log("yi");
-    },
+  destroyed() {
+    this.$EventBus.$off();
   },
   methods: {
     getAllArticle() {
       getAllArticle().then((res) => {
-        console.log(res);
         // 设置临时变量，这样能解决表格不渲染数据的问题，但是不知道为什么
         // TODO：了解响应式变化原理
         const tempData = [];
@@ -92,7 +92,6 @@ export default {
           this.$set(tempData[i], "commentCount", res[i].commentCount);
           this.$set(tempData[i], "likeCount", res[i].articleLikeCount);
         }
-        console.log(tempData);
         this.articleData = tempData;
       });
     },

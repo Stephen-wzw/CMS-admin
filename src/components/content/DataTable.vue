@@ -188,11 +188,8 @@ export default {
       console.log("queren");
     },
 
-    // 新增跳转至文章编辑
-    // TODO: 应该使用自定义事件
     addClick() {
       this.$emit("addClick");
-      // this.$router.push("article-edit").catch((err) => err);
     },
 
     // 操作方法

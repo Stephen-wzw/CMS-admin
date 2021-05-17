@@ -32,7 +32,7 @@ const routes = [
         component: ArticleManage,
       },
       {
-        path: "article-edit",
+        path: "article-edit/:articleId",
         component: ArticleEdit,
       },
       {
