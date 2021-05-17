@@ -39,7 +39,11 @@ export default {
   },
   mounted() {
     this.$EventBus.$on("addSuccess", () => {
-      console.log('sss');
+      console.log('新增成功');
+      this.getCategory();
+    });
+    this.$EventBus.$on("editSuccess", () => {
+      console.log('编辑成功');
       this.getCategory();
     });
   },
