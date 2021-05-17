@@ -63,6 +63,11 @@ export default {
     this.getAllArticle();
     this.$EventBus.$on("editClick", (row) => {
       this.$router.push(`article-edit/${row.articleId}`).catch((err) => err);
+      console.log(row);
+    });
+    this.$EventBus.$on("addArticleSuccess", () => {
+      console.log("success");
+      this.getAllArticle();
     });
   },
   destroyed() {
@@ -138,7 +143,8 @@ export default {
           .then(() => {
             deleteOne(row.articleId).then((res) => {
               console.log(res);
-              if (res === `成功删除id为${row.articleId}的文章`) {
+              console.log(row.articleId);
+              if (res.msg === `成功删除id为${row.articleId}的文章`) {
                 this.$message({
                   type: "success",
                   message: "删除成功!",

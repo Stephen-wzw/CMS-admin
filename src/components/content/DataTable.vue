@@ -25,6 +25,7 @@
       :data="tableData"
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      height="600"
     >
       <!-- 选择框 -->
       <el-table-column

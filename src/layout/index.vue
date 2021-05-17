@@ -48,12 +48,16 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item icon="el-icon-edit">修改密码</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-switch-button">退出登录</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-switch-button"
+              >退出登录</el-dropdown-item
+            >
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
       <el-main>
-        <router-view />
+        <keep-alive>
+          <router-view />
+        </keep-alive>
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -61,9 +65,7 @@
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style scoped>

@@ -1,22 +1,31 @@
 <template>
-  <div class="article-manage">
-    <bread-crumb>新增文章</bread-crumb>
-    <div class="ss"></div>
+  <div class="article-edit">
+    <bread-crumb>{{ breadCrumb }}</bread-crumb>
+    <div class="body">
+      <article-form></article-form>
+    </div>
   </div>
 </template>
 
 <script>
 import BreadCrumb from "components/common/BreadCrumb";
+import ArticleForm from './childComps/ArticleForm';
 
 export default {
   components: {
     BreadCrumb,
+    ArticleForm,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    breadCrumb() {
+      return this.$route.params.articleId == "add" ? "新增文章" : "编辑文章";
+    },
   },
   mounted() {
-    this.$EventBus.$on("editClick", (row) => {
-      this.$router.push("edit").catch((err) => err);
-      console.log(row);
-    });
+    console.log(this.$route);
   },
   destroyed() {
     this.$EventBus.$off();

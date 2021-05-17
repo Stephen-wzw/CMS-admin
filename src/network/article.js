@@ -1,4 +1,5 @@
 import { request } from "./request";
+import qs from "qs"
 
 export function getAllArticle() {
   return request({
@@ -27,26 +28,16 @@ export function recover(articleId) {
   });
 }
 
-export function getArticleByCate(categoryId) {
+export function postArticle(articleForm) {
   return request({
-    url: `/articleCategory/${categoryId}`,
+    url: `/admin/article/add`,
+    method: "post",
+    data: qs.stringify(articleForm)
   });
 }
 
-export function getArticleByTitle(filterValue) {
+export function getArticleById(articleId) {
   return request({
-    url: "/article/search",
-    params: {
-      titleKeywords: filterValue,
-    },
-  });
-}
-
-export function getArticleByContent(filterValue) {
-  return request({
-    url: "/article/search",
-    params: {
-      contentKeywords: filterValue,
-    },
+    url: `/admin/article/${articleId}`,
   });
 }
