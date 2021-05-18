@@ -55,8 +55,8 @@
         <el-col :span="8">
           <el-form-item label="是否删除" prop="isDelete">
             <el-select v-model="form.isDelete" placeholder="不限" clearable>
-              <el-option label="是" value="1"></el-option>
-              <el-option label="否" value="0"></el-option>
+              <el-option label="是" value="0"></el-option>
+              <el-option label="否" value="1"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -109,7 +109,8 @@ export default {
     },
 
     onSubmit(form) {
-      this.$EventBus.$emit("searchArticle", form)
+      this.$EventBus.$emit("searchArticle", form);
+      this.resetForm('form');
     },
 
     resetForm(formName) {

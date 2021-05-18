@@ -16,7 +16,13 @@ import moment from "moment";
 
 import DataTable from "components/content/DataTable";
 
-import { getAllArticle, deleteOne, deleteAll, recover, searchArticle } from "network/article";
+import {
+  getAllArticle,
+  deleteOne,
+  deleteAll,
+  recover,
+  searchArticle,
+} from "network/article";
 
 const articleHeader = [
   // {
@@ -68,11 +74,33 @@ export default {
       console.log("success");
       this.getAllArticle();
     });
-    this.$EventBus.$on("searchArticle", form => {
-      searchArticle(form).then(res => {
-        console.log(res);
-      })
-    })
+    this.$EventBus.$on("searchArticle", (form) => {
+      searchArticle(form).then((res) => {
+        // 设置临时变量，这样能解决表格不渲染数据的问题，但是不知道为什么
+        // TODO：了解响应式变化原理
+        const tempData = [];
+        const length = res.length;
+        for (let i = 0; i < length; i++) {
+          tempData[i] = new Object();
+
+          this.$set(tempData[i], "articleId", res[i].articleId);
+
+          // 表格所需数据
+          this.$set(tempData[i], "status", res[i].articleStatus);
+          this.$set(tempData[i], "title", res[i].articleTitle);
+          this.$set(tempData[i], "category", res[i].categoryId);
+          this.$set(
+            tempData[i],
+            "Date",
+            moment(res[i].articleCreationTime).format("YY/MM/DD HH:MM")
+          );
+          this.$set(tempData[i], "viewCount", res[i].articleViewCount);
+          this.$set(tempData[i], "commentCount", res[i].commentCount);
+          this.$set(tempData[i], "likeCount", res[i].articleLikeCount);
+        }
+        this.articleData = tempData;
+      });
+    });
   },
   destroyed() {
     this.$EventBus.$off();
