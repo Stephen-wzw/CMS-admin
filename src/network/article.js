@@ -41,3 +41,11 @@ export function getArticleById(articleId) {
     url: `/admin/article/${articleId}`,
   });
 }
+
+export function updateArticle(articleForm, articleId) {
+  return request({
+    url: `/admin/article/${articleId}/update`,
+    method: "post",
+    data: qs.stringify(articleForm)
+  });
+}
