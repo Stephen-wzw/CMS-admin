@@ -53,14 +53,12 @@ export default {
   methods: {
     getCategory() {
       getCategory().then((res) => {
-        console.log(res);
-
         // 设置临时变量，这样能解决表格不渲染数据的问题，但是不知道为什么
         // TODO：了解响应式变化原理
         const tempData = [];
-        const length = res.length;
+        const len = res.length;
 
-        for (let i = 1; i < length; i++) {
+        for (let i = 1; i < len; i++) {
           tempData[i] = new Object();
 
           const categoryPhoto = res[i].categoryPhoto.replace(

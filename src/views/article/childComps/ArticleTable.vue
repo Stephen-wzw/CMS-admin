@@ -83,6 +83,8 @@ export default {
         for (let i = 0; i < length; i++) {
           tempData[i] = new Object();
 
+          this.convertCategory(res[i].categoryId);
+
           this.$set(tempData[i], "articleId", res[i].articleId);
 
           // 表格所需数据
@@ -120,7 +122,7 @@ export default {
           // 表格所需数据
           this.$set(tempData[i], "status", res[i].articleStatus);
           this.$set(tempData[i], "title", res[i].articleTitle);
-          this.$set(tempData[i], "category", res[i].categoryId);
+          this.$set(tempData[i], "category", res[i].category.categoryName);
           this.$set(
             tempData[i],
             "Date",
