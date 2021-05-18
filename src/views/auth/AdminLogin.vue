@@ -17,20 +17,23 @@
         >
           登录
         </div>
-        <div
+        <!-- <div
           :class="{ isActive: status == 'register', title: true }"
           @click="changeRegister"
         >
           注册
-        </div>
+        </div> -->
       </div>
-      <el-form-item prop="userName" label-width="0">
-        <el-input v-model="form.userName" placeholder="请输入用户名"></el-input>
+      <el-form-item prop="adminName" label-width="0">
+        <el-input
+          v-model="form.adminName"
+          placeholder="请输入用户名"
+        ></el-input>
       </el-form-item>
-      <el-form-item prop="pass" label-width="0">
+      <el-form-item prop="password" label-width="0">
         <el-input
           type="password"
-          v-model="form.pass"
+          v-model="form.password"
           autocomplete="off"
           placeholder="请输入密码"
         ></el-input>
@@ -41,31 +44,31 @@
         >
         <!-- <el-button @click="resetForm('form')" size="small">重置</el-button> -->
       </div>
-      <div class="btn-wrap" v-else>
+      <!-- <div class="btn-wrap" v-else>
         <el-button type="primary" @click="registerClick('form')" size="small"
           >注册</el-button
         >
-        <!-- <el-button @click="resetForm('form')" size="small">重置</el-button> -->
-      </div>
+        <el-button @click="resetForm('form')" size="small">重置</el-button>
+      </div> -->
     </el-form>
   </div>
 </template>
 
 <script>
+import { login } from "network/auth";
+
 export default {
   data() {
     return {
       form: {
-        userName: "",
-        pass: "",
+        adminName: "",
+        password: "",
       },
       rules: {
-        userName: [
+        adminName: [
           { required: true, message: "请输入用户名", trigger: "blur" },
         ],
-        pass: [
-          { required: true, message: "请输入密码", trigger: "blur" }
-        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
       status: "login",
     };
@@ -75,31 +78,39 @@ export default {
       this.status = "login";
     },
 
-    changeRegister() {
-      this.status = "register";
-    },
+    // changeRegister() {
+    //   this.status = "register";
+    // },
 
     loginClick(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("login!");
+          login(this.form).then((res) => {
+            if (res.code) {
+              this.$message.success("登录成功")
+              console.log(res);
+              window.sessionStorage.setItem('sessionId', res.JSESSIONID);
+              this.$router.push("/admin").catch((err) => err);
+            } else {
+              this.$message.error("登录失败");
+            }
+          });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
     },
 
-    registerClick(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("register!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
+    // registerClick(formName) {
+    //   this.$refs[formName].validate((valid) => {
+    //     if (valid) {
+    //       alert("register!");
+    //     } else {
+    //       console.log("error submit!!");
+    //       return false;
+    //     }
+    //   });
+    // },
 
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -145,8 +156,8 @@ h1 {
   height: 50px;
   width: 100%;
   margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
   text-align: left;
 }
 
@@ -165,9 +176,9 @@ h1 {
 .isActive:after {
   display: block;
   position: absolute;
-  bottom: 0rem;
+  bottom: 0.5rem;
   content: "";
-  width: 2.9rem;
+  width: 2.4rem;
   height: 3px;
   background-color: #06f;
 }
