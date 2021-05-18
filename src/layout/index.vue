@@ -55,9 +55,7 @@
         </el-dropdown>
       </el-header>
       <el-main>
-        <keep-alive>
-          <router-view />
-        </keep-alive>
+        <router-view />
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
