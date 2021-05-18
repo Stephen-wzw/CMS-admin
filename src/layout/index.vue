@@ -2,8 +2,8 @@
   <el-container class="layout">
     <el-aside width="200px">
       <div class="aside-header">
-        <img src="~assets/img/logo.png" alt="" />
-        <h4>博客后台管理</h4>
+        <!-- <img src="~assets/img/logo.png" alt="" /> -->
+        <h3>电子信息内容后台管理</h3>
       </div>
       <el-menu
         default-active="/admin/article-manage"
@@ -33,10 +33,6 @@
           <i class="el-icon-user"></i>
           <span slot="title">关于管理</span>
         </el-menu-item>
-        <el-menu-item index="/admin/setting">
-          <i class="el-icon-setting"></i>
-          <span slot="title">系统设置</span>
-        </el-menu-item>
       </el-menu>
     </el-aside>
     <!-- 相对于侧边栏定位 -->
@@ -47,8 +43,8 @@
             Admin<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-edit">修改密码</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-switch-button"
+            <!-- <el-dropdown-item icon="el-icon-edit">修改密码</el-dropdown-item> -->
+            <el-dropdown-item icon="el-icon-switch-button" @click.native="loginOut"
               >退出登录</el-dropdown-item
             >
           </el-dropdown-menu>
@@ -63,7 +59,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    loginOut() {
+      console.log('1');
+      window.sessionStorage.removeItem("sessionId");
+      console.log(window.sessionStorage);
+      this.$router.push("/admin/login").catch((err) => err);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -83,7 +88,11 @@ export default {};
 
 .aside-header {
   background-color: #233545;
-  padding: 25px;
+  /* padding: 25px; */
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s;
 }
 
@@ -94,7 +103,7 @@ export default {};
   transition: all 0.2s;
 }
 
-.el-aside h4 {
+.el-aside h3 {
   color: #dfe4ed;
 }
 
