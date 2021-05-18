@@ -63,7 +63,6 @@ export default {
     this.getAllArticle();
     this.$EventBus.$on("editClick", (row) => {
       this.$router.push(`article-edit/${row.articleId}`).catch((err) => err);
-      console.log(row);
     });
     this.$EventBus.$on("addArticleSuccess", () => {
       console.log("success");

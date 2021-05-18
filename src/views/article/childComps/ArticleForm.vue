@@ -26,25 +26,33 @@
     <el-form-item label="正文" prop="articleContent">
       <el-input
         type="textarea"
-        :autosize="{ minRows: 5 }"
+        :autosize="{ minRows: 3, maxRows: 7 }"
         v-model="articleForm.articleContent"
         size="small"
         placeholder="仅支持markdown语法"
       ></el-input>
     </el-form-item>
-    <el-button type="primary" @click="submitForm('articleForm')" size="small"
-      >发布文章</el-button
-    >
-    <el-button @click="saveDraft('articleForm')" size="small" type="info"
-      >存为草稿</el-button
-    >
-    <el-button @click="back('articleForm')" size="small">返回</el-button>
+    <div class="btn" v-if="$route.params.articleId == 'add'">
+      <el-button type="primary" @click="submitForm('articleForm')" size="small"
+        >发布文章</el-button
+      >
+      <el-button @click="saveDraft('articleForm')" size="small" type="info"
+        >存为草稿</el-button
+      >
+      <el-button @click="back('articleForm')" size="small">返回</el-button>
+    </div>
+    <div class="btn" v-else>
+      <el-button type="primary" @click="submitForm('articleForm')" size="small"
+        >保存更改</el-button
+      >
+      <el-button @click="back('articleForm')" size="small">返回</el-button>
+    </div>
   </el-form>
 </template>
 
 <script>
 import { getCategory } from "network/category";
-import { postArticle } from "network/article";
+import { postArticle, getArticleById, updateArticle } from "network/article";
 
 export default {
   data() {
@@ -73,6 +81,8 @@ export default {
   },
   created() {
     this.getCategory();
+    this.getArticle();
+    console.log(this.$route);
   },
   methods: {
     getCategory() {
@@ -92,33 +102,70 @@ export default {
       });
     },
 
+    getArticle() {
+      let articleId = this.$route.params.articleId;
+
+      if (articleId != "add") {
+        getArticleById(articleId).then((res) => {
+          console.log(res);
+          for (let key in this.articleForm) {
+            this.articleForm[key] = res[key];
+          }
+        });
+      }
+    },
+
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log("发布文章");
-          console.log(this.articleForm);
-          postArticle(this.articleForm).then((res) => {
-            console.log(res);
-            if (res.msg == "新增文章成功") {
-              this.$message({
-                type: "success",
-                message: "新增成功!",
-              });
-              
-              this.$EventBus.$emit("addArticleSuccess")
-              this.$router.go(-1);
+          let articleId = this.$route.params.articleId;
 
-              this.$nextTick(() => {
-                this.$refs[formName].resetFields();
-              });
-            } else {
-              this.$message({
-                type: "error",
-                message: "新增失败!",
-              });
-            }
-          });
-          // console.log(this.articleForm);
+          if (articleId != "add") {
+            // 编辑文章
+            updateArticle(this.articleForm, articleId).then((res) => {
+              console.log(res);
+              if (res.msg == "新增文章成功") {
+                this.$message({
+                  type: "success",
+                  message: "保存成功!",
+                });
+
+                this.$EventBus.$emit("addArticleSuccess");
+                this.$router.go(-1);
+
+                this.$nextTick(() => {
+                  this.$refs[formName].resetFields();
+                });
+              } else {
+                this.$message({
+                  type: "error",
+                  message: "保存失败!",
+                });
+              }
+            });
+          } else {
+            // 新增文章
+            postArticle(this.articleForm).then((res) => {
+              if (res.msg == "新增文章成功") {
+                this.$message({
+                  type: "success",
+                  message: "新增成功!",
+                });
+
+                this.$EventBus.$emit("addArticleSuccess");
+                this.$router.go(-1);
+
+                this.$nextTick(() => {
+                  this.$refs[formName].resetFields();
+                });
+              } else {
+                this.$message({
+                  type: "error",
+                  message: "新增失败!",
+                });
+              }
+            });
+          }
         } else {
           console.log("error submit!!");
           return false;
