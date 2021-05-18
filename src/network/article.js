@@ -1,5 +1,5 @@
 import { request } from "./request";
-import qs from "qs"
+import qs from "qs";
 
 export function getAllArticle() {
   return request({
@@ -32,7 +32,7 @@ export function postArticle(articleForm) {
   return request({
     url: `/admin/article/add`,
     method: "post",
-    data: qs.stringify(articleForm)
+    data: qs.stringify(articleForm),
   });
 }
 
@@ -46,6 +46,21 @@ export function updateArticle(articleForm, articleId) {
   return request({
     url: `/admin/article/${articleId}/update`,
     method: "post",
-    data: qs.stringify(articleForm)
+    data: qs.stringify(articleForm),
+  });
+}
+
+export function searchArticle(filterForm) {
+  return request({
+    url: `/admin/article/search`,
+    method: "get",
+    params: {
+      categoryId: filterForm.category,
+      articleTitle: filterForm.title,
+      articleContent: filterForm.content,
+      articleCreationTimeBegin: filterForm.date1,
+      articleCreationTimeOver: filterForm.date2,
+      articleStatus: filterForm.isDelete,
+    },
   });
 }

@@ -33,13 +33,21 @@
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item label="发表时间" prop="date">
+          <el-form-item label="开始时间" prop="date1">
             <el-date-picker
               placeholder="选择日期"
-              v-model="form.date"
-              type="daterange"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              v-model="form.date1"
+              type="date"
+              style="width: 208px"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="结束时间" prop="date2">
+            <el-date-picker
+              placeholder="选择日期"
+              v-model="form.date2"
+              type="date"
               style="width: 208px"
             ></el-date-picker>
           </el-form-item>
@@ -54,7 +62,7 @@
         </el-col>
       </el-row>
       <div class="btn-wrap">
-        <el-button type="primary" @click="onSubmit" size="small"
+        <el-button type="primary" @click="onSubmit(form)" size="small"
           >搜索</el-button
         >
         <el-button size="small" @click="resetForm('form')">重置</el-button>
@@ -64,6 +72,8 @@
 </template>
 
 <script>
+import { getCategory } from "network/category";
+
 export default {
   data() {
     return {
@@ -71,37 +81,37 @@ export default {
         title: "",
         category: "",
         content: "",
-        date: "",
+        date1: "",
+        date2: "",
         isDelete: "",
       },
-      categories: [
-        {
-          value: "选项1",
-          label: "黄金糕",
-        },
-        {
-          value: "选项2",
-          label: "双皮奶",
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎",
-        },
-        {
-          value: "选项4",
-          label: "龙须面",
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭",
-        },
-      ],
+      categories: undefined,
     };
   },
+  created() {
+    this.getCategory();
+  },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    getCategory() {
+      getCategory().then((res) => {
+        let len = res.length;
+        let tempData = []; // 必须要有临时变量才能显示
+
+        for (let i = 0; i < len; i++) {
+          tempData[i] = new Object();
+
+          this.$set(tempData[i], "label", res[i].categoryName);
+          this.$set(tempData[i], "value", res[i].categoryId);
+        }
+
+        this.categories = tempData;
+      });
     },
+
+    onSubmit(form) {
+      this.$EventBus.$emit("searchArticle", form)
+    },
+
     resetForm(formName) {
       this.$nextTick(() => {
         this.$refs[formName].resetFields();

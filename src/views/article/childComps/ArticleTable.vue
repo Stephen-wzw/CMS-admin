@@ -16,7 +16,7 @@ import moment from "moment";
 
 import DataTable from "components/content/DataTable";
 
-import { getAllArticle, deleteOne, deleteAll, recover } from "network/article";
+import { getAllArticle, deleteOne, deleteAll, recover, searchArticle } from "network/article";
 
 const articleHeader = [
   // {
@@ -68,6 +68,11 @@ export default {
       console.log("success");
       this.getAllArticle();
     });
+    this.$EventBus.$on("searchArticle", form => {
+      searchArticle(form).then(res => {
+        console.log(res);
+      })
+    })
   },
   destroyed() {
     this.$EventBus.$off();
