@@ -24,12 +24,6 @@ export default {
       return this.$route.params.articleId == "add" ? "新增文章" : "编辑文章";
     },
   },
-  mounted() {
-    console.log(this.$route);
-  },
-  destroyed() {
-    this.$EventBus.$off();
-  },
 };
 </script>
 
