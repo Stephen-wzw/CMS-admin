@@ -1,0 +1,90 @@
+Date : 2021-05-18 16:53:17
+Directory : f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin
+Total : 38 files,  29306 codes, 84 comments, 284 blanks, all 29674 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |     26,830 |          0 |          2 |     26,832 |
+| Vue        |         21 |      1,999 |         78 |        202 |      2,279 |
+| JavaScript |         12 |        417 |          2 |         67 |        486 |
+| CSS        |          1 |         25 |          3 |          6 |         34 |
+| Markdown   |          1 |         19 |          0 |          6 |         25 |
+| HTML       |          1 |         16 |          1 |          1 |         18 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                             | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                |         38 |     29,306 |         84 |        284 |     29,674 |
+| public                                                                                           |          1 |         16 |          1 |          1 |         18 |
+| src                                                                                              |         32 |      2,411 |         83 |        273 |      2,767 |
+| src\assets                                                                                       |          1 |         25 |          3 |          6 |         34 |
+| src\assets\css                                                                                   |          1 |         25 |          3 |          6 |         34 |
+| src\components                                                                                   |          2 |        239 |          8 |         25 |        272 |
+| src\components\common                                                                            |          1 |         21 |          0 |          6 |         27 |
+| src\components\content                                                                           |          1 |        218 |          8 |         19 |        245 |
+| src\layout                                                                                       |          1 |        133 |          4 |         13 |        150 |
+| src\network                                                                                      |          7 |        213 |          0 |         37 |        250 |
+| src\plugins                                                                                      |          1 |         71 |          0 |         14 |         85 |
+| src\router                                                                                       |          1 |         90 |          0 |          8 |         98 |
+| src\views                                                                                        |         17 |      1,616 |         66 |        161 |      1,843 |
+| src\views\about                                                                                  |          2 |        120 |          1 |          9 |        130 |
+| src\views\about\childComps                                                                       |          1 |        101 |          1 |          5 |        107 |
+| src\views\article                                                                                |          5 |        611 |         16 |         55 |        682 |
+| src\views\article\childComps                                                                     |          3 |        562 |         16 |         47 |        625 |
+| src\views\auth                                                                                   |          1 |        163 |         13 |         16 |        192 |
+| src\views\category                                                                               |          3 |        320 |         24 |         45 |        389 |
+| src\views\category\childComps                                                                    |          2 |        297 |         24 |         41 |        362 |
+| src\views\comment                                                                                |          3 |        206 |          6 |         18 |        230 |
+| src\views\comment\childComps                                                                     |          2 |        185 |          4 |         14 |        203 |
+| src\views\message                                                                                |          3 |        196 |          6 |         18 |        220 |
+| src\views\message\childComps                                                                     |          2 |        175 |          4 |         14 |        193 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                         | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\README.md                                      | Markdown   |         19 |          0 |          6 |         25 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\babel.config.js                                | JavaScript |          5 |          0 |          1 |          6 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\package-lock.json                              | JSON       |     26,781 |          0 |          1 |     26,782 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\package.json                                   | JSON       |         49 |          0 |          1 |         50 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\public\index.html                              | HTML       |         16 |          1 |          1 |         18 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\App.vue                                    | Vue        |         11 |          0 |          3 |         14 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\assets\css\base.css                        | CSS        |         25 |          3 |          6 |         34 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\components\common\BreadCrumb.vue           | Vue        |         21 |          0 |          6 |         27 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\components\content\DataTable.vue           | Vue        |        218 |          8 |         19 |        245 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\layout\index.vue                           | Vue        |        133 |          4 |         13 |        150 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\main.js                                    | JavaScript |         13 |          2 |          6 |         21 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\about.js                           | JavaScript |         14 |          0 |          3 |         17 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\article.js                         | JavaScript |         58 |          0 |          9 |         67 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\auth.js                            | JavaScript |          9 |          0 |          2 |         11 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\category.js                        | JavaScript |         32 |          0 |          5 |         37 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\comment.js                         | JavaScript |         38 |          0 |          7 |         45 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\message.js                         | JavaScript |         38 |          0 |          7 |         45 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\network\request.js                         | JavaScript |         24 |          0 |          4 |         28 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\plugins\element.js                         | JavaScript |         71 |          0 |         14 |         85 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\router\index.js                            | JavaScript |         90 |          0 |          8 |         98 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\about\AboutManage.vue                | Vue        |         19 |          0 |          4 |         23 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\about\childComps\AboutForm.vue       | Vue        |        101 |          1 |          5 |        107 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\article\ArticleEdit.vue              | Vue        |         27 |          0 |          4 |         31 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\article\ArticleManage.vue            | Vue        |         22 |          0 |          4 |         26 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\article\childComps\ArticleFilter.vue | Vue        |        128 |          0 |         10 |        138 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\article\childComps\ArticleForm.vue   | Vue        |        182 |          3 |         17 |        202 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\article\childComps\ArticleTable.vue  | Vue        |        252 |         13 |         20 |        285 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\auth\AdminLogin.vue                  | Vue        |        163 |         13 |         16 |        192 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\category\CateManage.vue              | Vue        |         23 |          0 |          4 |         27 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\category\childComps\CateForm.vue     | Vue        |        189 |         18 |         26 |        233 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\category\childComps\CateTable.vue    | Vue        |        108 |          6 |         15 |        129 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\comment\CommentManage.vue            | Vue        |         21 |          2 |          4 |         27 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\comment\childComps\CommentFilter.vue | Vue        |         80 |          0 |          4 |         84 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\comment\childComps\CommentTable.vue  | Vue        |        105 |          4 |         10 |        119 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\message\MessageManage.vue            | Vue        |         21 |          2 |          4 |         27 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\message\childComps\MessageFilter.vue | Vue        |         75 |          0 |          4 |         79 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\src\views\message\childComps\MessageTable.vue  | Vue        |        100 |          4 |         10 |        114 |
+| f:\F_study_data\2-学习资料\大前端\5_项目\5_博客\myBlog\admin\vue.config.js                                  | JavaScript |         25 |          0 |          1 |         26 |
+| Total                                                                                            |            |     29,306 |         84 |        284 |     29,674 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
